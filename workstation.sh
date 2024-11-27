@@ -55,6 +55,18 @@ VALIDATE $? "kubectl installation"
 # ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 # VALIDATE $? "kubens installation"
 
+# extend disk 
+lsblk
+sudo growpart /dev/nvme0n1 4
+sudo lvextend -l +50%FREE /dev/RootVG/rootVol
+sudo lvextend -l +50%FREE /dev/RootVG/varVol
+sudo xfs_growfs /
+sudo xfs_growfs /var
+VALIDATE $? "Disk Resize"
+
+# k9s
+curl -sS https://webinstall.dev/k9s | bash
+
 
 # Helm
 # curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
