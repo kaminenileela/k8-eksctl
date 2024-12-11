@@ -29,13 +29,13 @@ else
 fi
 
  # docker
-# yum install -y yum-utils
-# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-# yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-# systemctl start docker
-# systemctl enable docker
-# usermod -aG docker ec2-user
-# VALIDATE $? "Docker installation"
+yum install -y yum-utils
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
+VALIDATE $? "Docker installation"
 
 # eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -56,16 +56,16 @@ VALIDATE $? "kubectl installation"
 # VALIDATE $? "kubens installation"
 
 # extend disk 
-lsblk
-sudo growpart /dev/nvme0n1 4
-sudo lvextend -l +50%FREE /dev/RootVG/rootVol
-sudo lvextend -l +50%FREE /dev/RootVG/varVol
-sudo xfs_growfs /
-sudo xfs_growfs /var
-VALIDATE $? "Disk Resize"
+# lsblk
+# sudo growpart /dev/nvme0n1 4
+# sudo lvextend -l +50%FREE /dev/RootVG/rootVol
+# sudo lvextend -l +50%FREE /dev/RootVG/varVol
+# sudo xfs_growfs /
+# sudo xfs_growfs /var
+# VALIDATE $? "Disk Resize"
 
 # k9s
-curl -sS https://webinstall.dev/k9s | bash
+# curl -sS https://webinstall.dev/k9s | bash
 
 
 # Helm
